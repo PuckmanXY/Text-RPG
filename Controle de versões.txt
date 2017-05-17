@@ -1,0 +1,10 @@
+--->Versões passadas
+###
+
+--->Versão atual
+#1.0
+Menus e criação de personagem em texto
+
+---> Próximo update
+-Criar janelas p/ criação de ficha do personagem
+-Introduzir a história
