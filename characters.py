@@ -1,32 +1,73 @@
-import random as rd
+import campaign
+import pickle
 import tkinter as tk
-from tkinter import ttk
+
+
+global cont_chars
+cont_chars = 1
+
+saved_games = [0, "Chico", 40, 5, 5, 5, 0]
+
+def ff():
+    arq = open('contagem.pck', 'rb')
+    globals()["cont_chars"] = pickle.load(arq)
+    arq.close()
+
 
 def register_character():
+    atributes = 15
 
-    # def character_name():
-    #     win = tk.Tk()
-    #     win.title("Ficha")
-    #
-    #     ttk.Label(win, text="Qual o nome do seu personagem?").grid(column=0, row=0)
-    #
-    #     char_name = tk.StringVar()
-    #     ent = ttk.Entry(win, width=50, textvariable=char_name)
-    #     ent.grid(column=1, row=0)
-    #     ent.focus()
-    #     ttk.Label(win, text="\t\t\t\t\t\tATRIBUTOS\t\t").grid(column=0, row=1)
-    #     ttk.Label(win, text=":{30s}".format('strenght')).grid(column=0, row=2)
-    #     ttk.Label(win, text="Dextreza").grid(column=0, row=3)
-    #     ttk.Label(win, text="Inteligência").grid(column=0, row=4)
-    #
-    #     win.mainloop()
+    def save_char():
+        if (str(strenght_entry.get()).isnumeric()) and (str(dexterity_entry.get()).isnumeric()) and (str(intelligence_entry.get()).isnumeric()) and (not(str(name_entry.get()).isnumeric())):
+            str_int = int(strenght_entry.get())
+            dex_int = int(dexterity_entry.get())
+            int_int = int(intelligence_entry.get())
+            if str_int + dex_int + int_int <= atributes:
+                new_game = [globals()["cont_chars"], name_entry.get(), 30, 1, str_int, dex_int, int_int, 0, 1]
+                saved_games.append(new_game)
+                campaign.current_session = new_game
+                globals()["cont_chars"] += 1
+                arq = open('contagem.pck', 'wb')
+                pickle.dump(globals()["cont_chars"], arq)
+                arq.close()
+                win.destroy()
+                campaign.what_to_do()
+            else:
+                print("Vá com calma! Seu personagem está muito forte, tente diminuir alguns atributos!")
+        else:
+            print("Entrada inválida! Tente novamente")
+            win.destroy()
+            register_character()
 
-    # character_name()
 
-    new_game_number = int(input("Escolha um número para o seu personagem(esse número será registrado no sistema para que você possa acessar seu personagem futuramente): "))
-    new_game_character = input("Qual o nome do seu personagem?\n")
-    new_game_force = int(input("Quanto de força ele tem?\n"))
-    new_game_inteligence = int(input("Quanto de inteligência?\n"))
-    new_game_dexterity = int(input("Destreza?"))
-    new_game = [new_game_number, new_game_character, new_game_force, new_game_inteligence, new_game_dexterity]
-    saved_games.append(new_game)
+    win = tk.Tk()
+    win.title("Ficha")
+    win.geometry("355x125")
+
+    name = tk.Label(win, text="Nome: ")
+    name.grid(column=0, row=0)
+    name_entry = tk.Entry(win)
+    name_entry.grid(column=1, row=0)
+
+    strenght = tk.Label(win, text="Força: ")
+    strenght.grid(column=0, row=1)
+    strenght_entry = tk.Entry(win)
+    strenght_entry.grid(column=1, row=1)
+
+    dexterity = tk.Label(win, text="Dextreza: ")
+    dexterity.grid(column=0, row=2)
+    dexterity_entry = tk.Entry(win)
+    dexterity_entry.grid(column=1, row=2)
+
+    intelligence = tk.Label(win, text="Inteligência: ")
+    intelligence.grid(column=0, row=3)
+    intelligence_entry = tk.Entry(win)
+    intelligence_entry.grid(column=1, row=3)
+
+    warning = tk.Label(win, text="Você tem 15 pontos para distribuir\nentre os atributos! Escolha com sabedoria!")
+    warning.grid(column=0, row=4)
+
+    save = tk.Button(win, width=10, text="Confirmar", command=save_char)
+    save.grid(column=1, row=4)
+
+    win.mainloop()

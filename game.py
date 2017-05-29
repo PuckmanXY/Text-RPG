@@ -1,30 +1,34 @@
-import random
-import massa_teste
+import pickle
 import campaign
-
-saved_games = []
+import characters
 
 def main_menu():
-    print("**************")
-    print("****RPGZÃO****")
-    print("**************")
-    print("\n\n")
+    print("***********************")
+    print("****Fighting Beasts****")
+    print("***********************")
+    print("\n")
     print("\t1\t-\tIniciar Campanha (Novo Jogo)")
     print("\t2\t-\tCarregar Jogo")
-    print("\t3\t-\tOpções")
-    print("\t4\t-\tCréditos")
+    print("\t3\t-\tCréditos")
     print("\n\n\n\t0\t-\tSair")
 
     return int(input("Escolha uma opção:"))
 
-def register_game():
-    new_game_number = int(input("Escolha um número para o seu personagem(esse número será registrado no sistema para que você possa acessar seu personagem futuramente): "))
-    new_game_character = input("Qual o nome do seu personagem?\n")
-    new_game_force = int(input("Quanto de força ele tem?\n"))
-    new_game_inteligence = int(input("Quanto de inteligência?\n"))
-    new_game_dexterity = int(input("Destreza?"))
-    new_game = [new_game_number, new_game_character, new_game_force, new_game_inteligence, new_game_dexterity]
-    saved_games.append(new_game)
+
+def load_games():
+    arq = open('personagens.pck', 'rb')
+    characters.saved_games = pickle.load(arq)
+    arq.close()
+
+def load_game():
+    for i in range (len(characters.saved_games)):
+        print(characters.saved_games[i][0],"-" ,characters.saved_games[i][1], end = "\n")
+    num = int(input("Qual é o número do seu personagem?\n"))
+    for character in characters.saved_games:
+        if num == int(character[0]):
+            campaign.current_session = character
+            campaign.what_to_do()
+
 
 def credits():
     print("\n\n")
@@ -39,25 +43,20 @@ def credits():
     __main__()
 
 def __main__():
+    characters.ff()
+    load_games()
     x = main_menu()
     if x == 1:
-        register_game()
-        campaign.cap1()
+        characters.register_character()
 
     elif x == 2:
         load_game()
 
     elif x == 3:
-        options()
-
-    elif x == 4:
         credits()
 
     elif x == 0:
-        pass
+        return 0
 
     else:
         main_menu()
-
-
-__main__()

@@ -1,5 +1,8 @@
 import game
+import characters
+import pickle
 
-##win.destroy
+
+##characters.do_nothing()
 
 game.__main__()
