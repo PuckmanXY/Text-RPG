@@ -4,5 +4,10 @@ Utiliza um sistema de save games simples e é bastante intuitivo.
 
 
 
+Fighting beasts is a battle game that presents the main character with 3 basic atributes: Strength, dexterity and inteligence.
+Uses a simple save game system and is very intuitive.
 
-Feito por Kayo Anderson e Ranieri Wellyson.
+
+
+Feito por/By:
+Kayo Anderson & Ranieri Wellyson
