@@ -1,10 +1,12 @@
---->Versıes passadas
-###
-
---->Vers„o atual
+--->Vers√µes passadas
 #1.0
-Menus e criaÁ„o de personagem em texto
+Menus e cria√ß√£o de personagem usando o console
 
----> PrÛximo update
--Criar janelas p/ criaÁ„o de ficha do personagem
--Introduzir a histÛria
+--->Vers√£o atual
+#2.0
+Janelas para cria√ß√£o de fichas de personagens e batalhas
+Sistema de save game
+
+---> Pr√≥ximo update
+-Introduzir a hist√≥ria
+-Estruturar os personagens (principal e inimigos) como objetos (atualmente utiliza listas)
