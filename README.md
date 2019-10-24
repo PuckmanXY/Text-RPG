@@ -10,4 +10,4 @@ Uses a simple save game system and is very intuitive.
 
 
 Feito por/By:
-Kayo Anderson & Ranieri Wellyson
+Kayo Campos & Ranieri Wellyson
